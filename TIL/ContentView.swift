@@ -1,13 +1,13 @@
 import SwiftUI
 
-struct ThingStore {
-    var things: [String] = []
+final class ThingStore: ObservableObject{
+     @Published var things: [String] = []
 }
 
 struct ContentView: View {
     @State private var showAddThing = false
-    @State private var myThings = ThingStore()
-
+    @StateObject private var myThings = ThingStore()
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
@@ -31,7 +31,7 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $showAddThing) {
-                AddThingView( someThings: $myThings)
+                AddThingView( someThings: myThings)
             }
         }
     }
